@@ -16,6 +16,10 @@ import {
 import PersonalInfoForm from "../components/PersonalInfoForm";
 import ResumePreview from "../components/ResumePreview";
 import TemplateSelector from "../components/TemplateSelector";
+import ColorPicker from "../components/ColorPicker";
+import ProfessionalSummaryForm from "../components/ProfessionalSummaryForm";
+import ExperienceForm from "../components/ExperienceForm";
+import EducationForm from "../components/EducationForm";
 
 const ResumeBuilder = () => {
     const { resumeId } = useParams();
@@ -92,37 +96,39 @@ const ResumeBuilder = () => {
                                 className="flex justify-between items-center mb-6 border-b
                               border-gray-300 py-1">
                             </div>
-                            <div className="flex justfiy-between items-center mb-6 border-b border-gray-300 py-1 ">
-                                <TemplateSelector selectedTemplate={resumeData.template}
-                                    onChange={(template) => setResumeData((prev) => ({ ...prev, template }))} />
-                                <div>
+                            <div className="flex justify-between items-center mb-6 border-b gap-4 border-gray-300 py-1">
+                                {/* left: template + color picker */}
+                                <div className="flex items-center gap-4">
+                                    <TemplateSelector
+                                        selectedTemplate={resumeData.template}
+                                        onChange={(template) => setResumeData((prev) => ({ ...prev, template }))}
+                                    />
+                                    <ColorPicker
+                                        selectedColor={resumeData.accent_color}
+                                        onChange={(color) => setResumeData((prev) => ({ ...prev, accent_color: color }))}
+                                    />
                                 </div>
-                                <div className="flex items-center">
+
+                                {/* right: navigation */}
+                                <div className="flex items-center gap-2">
                                     {activeSectionIndex !== 0 && (
                                         <button
                                             onClick={() =>
-                                                setActiveSectionIndex((prevIndex) =>
-                                                    Math.max(prevIndex - 1, 0),
-                                                )
-                                            } //math sayesinde uyg negatif bir sayfaya gitmesini engellerim
-                                            className="flex items-center gap-1 p-3 rounded-lg 
-                                       text-sm font-medium text-gray-600 hover:bg-gray-50 
-                                       transition-all"
+                                                setActiveSectionIndex((prevIndex) => Math.max(prevIndex - 1, 0))
+                                            }
+                                            className="flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all"
                                             disabled={activeSectionIndex === 0}
                                         >
                                             <ChevronLeft className="size-4" />
                                             Previous
                                         </button>
                                     )}
+
                                     <button
                                         onClick={() =>
-                                            setActiveSectionIndex((prevIndex) =>
-                                                Math.min(prevIndex + 1, sections.length - 1),
-                                            )
+                                            setActiveSectionIndex((prevIndex) => Math.min(prevIndex + 1, sections.length - 1))
                                         }
-                                        className="flex items-center gap-1 p-3 rounded-lg 
-                                       text-sm font-medium text-gray-600 hover:bg-gray-50 
-                                       transition-all"
+                                        className="flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all"
                                         disabled={activeSectionIndex === sections.length - 1}
                                     >
                                         <ChevronRight className="size-4" />
@@ -147,6 +153,45 @@ const ResumeBuilder = () => {
                                         setRemoveBackground={setRemoveBackground}
                                     />
                                 )}
+                                {
+                                    activeSection.id === "summary" && (
+                                        <ProfessionalSummaryForm
+                                            data={resumeData.professional_summary}
+                                            onChange={(data) =>
+                                                setResumeData((prev) => ({
+                                                    ...prev,
+                                                    professional_summary: data,
+                                                }))
+                                            }
+                                            setResumeData={setResumeData}
+                                        />
+                                    )}
+                                {
+                                    activeSection.id === "experience" && (
+                                        <ExperienceForm
+                                            data={resumeData.experience}
+                                            onChange={(data) =>
+                                                setResumeData((prev) => ({
+                                                    ...prev,
+                                                    experience: data,
+                                                }))
+                                            }
+
+                                        />
+                                    )}
+                                {
+                                    activeSection.id === "education" && (
+                                        <EducationForm
+                                            data={resumeData.education}
+                                            onChange={(data) =>
+                                                setResumeData((prev) => ({
+                                                    ...prev,
+                                                    education: data,
+                                                }))
+                                            }
+
+                                        />
+                                    )}
                             </div>
                         </div>
                     </div>

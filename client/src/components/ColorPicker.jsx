@@ -33,21 +33,28 @@ transition-all px-3 py-2 rounded-lg'>
                 right-0 p-3 mt-2 z-10 bg-white rounded-md border border-gray-200
                 shadow-sm'>
                     {colors.map((color) => (
-                        <div key={color.value} className='relative cursor-pointer group
-                    flex flex-col' onClick={() => { onChange(color.value) }}>
-                            <div className="w-12 h-12 rounded-full border-2 border-transparent
-                        group-hover:border-black/25 transition-colors"
-                                style={{ backgroundColor: color.value }}>
+                        <div
+                            key={color.value}
+                            className='relative cursor-pointer group flex flex-col items-center'
+                            onClick={() => { onChange(color.value) }}
+                        >
+                            {/* renkli yuvarlak  */}
+                            <div
+                                className="w-12 h-12 rounded-full border-2 border-transparent
+                                group-hover:border-black/25 transition-colors relative flex items-center justify-center"
+                                style={{ backgroundColor: color.value }}
+                            >
                                 {selectedColor === color.value && (
-                                    <div className='absolute top-0 left-0 right-0 bottom-4.5
-                                flex items-center justify-center'>
+                                    <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
                                         <Check className='size-5 text-white' />
                                     </div>
                                 )}
-                                <p className='text-xs text-center mt-1 text-gray-600'>
-                                    {color.name}</p>
                             </div>
 
+                            {/* isim altında görünür */}
+                            <p className='text-xs text-center mt-2 text-gray-600 select-none'>
+                                {color.name}
+                            </p>
                         </div>
                     ))}
                 </div>
