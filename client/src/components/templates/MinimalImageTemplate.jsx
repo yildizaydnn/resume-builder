@@ -18,7 +18,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                     {/* Image */}
                     {data.personal_info?.image && typeof data.personal_info.image === 'string' ? (
                         <div className="mb-6">
-                            <img src={data.personal_info.image} alt="Profile" className="w-32 h-32 object-cover rounded-full mx-auto" style={{ background: accentColor+'70' }} />
+                            <img src={data.personal_info.image} alt="Profile" className="w-32 h-32 object-cover rounded-full mx-auto" style={{ background: accentColor + '70' }} />
                         </div>
                     ) : (
                         data.personal_info?.image && typeof data.personal_info.image === 'object' ? (
@@ -155,15 +155,20 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                     )}
 
                     {/* Projects */}
-                    {data.project && data.project.length > 0 && (
+                    {data.projects && data.projects.length > 0 && (
                         <section>
                             <h2 className="text-sm uppercase tracking-widest font-semibold" style={{ color: accentColor }}>
                                 PROJECTS
                             </h2>
                             <div className="space-y-4">
-                                {data.project.map((project, index) => (
+                                {data.projects.map((project, index) => (
                                     <div key={index}>
                                         <h3 className="text-md font-medium text-zinc-800 mt-3">{project.name}</h3>
+                                        {project.link && (
+                                            <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-sm block mt-1 break-all" style={{ color: accentColor }}>
+                                                {project.link}
+                                            </a>
+                                        )}
                                         <p className="text-sm mb-1" style={{ color: accentColor }} >
                                             {project.type}
                                         </p>
