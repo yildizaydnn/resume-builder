@@ -21,48 +21,57 @@ const ResumePreview = ({ data, template, accentColor, classes = "" }) => {
 
   return (
     <div className='w-full bg-gray-100'>
-      <div id='resume-preview' className={"max-w-3xl mx-auto p-6 bg-white shadow-md"
-        + classes}>
+      {/* className kısmına bir boşluk ekledim: "shadow-md " + classes */}
+      <div id='resume-preview' className={"max-w-3xl mx-auto p-6 bg-white shadow-md " + classes}>
         {renderTemplate()}
-
       </div>
 
-      <style jsx>{
-        `@page {
-  size: letter;
-  margin: 0;
-}
+      <style jsx>{`
+        @page {
+          size: A4;
+          margin: 0;
+        }
 
-@media print {
-  html, body {
-    width: 8.5in;
-    height: 11in;
-    overflow: hidden;
-  }
+        @media print {
+          /* Renklerin ve arka planların (accent color) görünmesini sağlar */
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+          }
 
-  body * {
-    visibility: hidden;
-  }
+          html, body {
+            width: 210mm;
+            height: 297mm;
+            overflow: hidden;
+            background: white;
+            margin: 0;
+            padding: 0;
+          }
 
-  #resume-preview, #resume-preview * {
-    visibility: visible;
-  }
+          /* Sayfadaki her şeyi gizle */
+          body * {
+            visibility: hidden;
+          }
 
-  #resume-preview {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: auto;
-    margin: 0;
-    padding: 0;
-    box-shadow: none !important;
-    border: none !important;
-  }
-}    `
-      }
+          /* Sadece CV alanını ve içindekileri göster */
+          #resume-preview, #resume-preview * {
+            visibility: visible;
+          }
 
-      </style>
+          #resume-preview {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0;
+            padding: 0;
+            box-shadow: none !important;
+            border: none !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }

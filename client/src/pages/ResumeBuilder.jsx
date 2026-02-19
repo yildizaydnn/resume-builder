@@ -12,6 +12,11 @@ import {
     FolderOpen,
     ChevronLeft,
     ChevronRight,
+    Share,
+    Share2Icon,
+    EyeIcon,
+    EyeOffIcon,
+    DownloadIcon,
 } from "lucide-react";
 import PersonalInfoForm from "../components/PersonalInfoForm";
 import ResumePreview from "../components/ResumePreview";
@@ -64,6 +69,26 @@ const ResumeBuilder = () => {
     useEffect(() => {
         loadExistingResume();
     }, []);
+
+    const changeResumeVisibility = () => {
+        setResumeData({ ...resumeData, public: !resumeData.public });
+
+    }
+
+    const handleShare = () => {
+        const frontendUrl = window.location.href.split('/app/')[0];
+        const resumeUrl = frontendUrl + "/view/" + resumeId;
+
+        if (navigator.share) {
+            navigator.share({ url: resumeUrl, text: "My Resume" })
+        } else {
+            alert('Share not supported on this browser')
+        }
+    }
+
+    const downloadResume = () => {
+        window.print();
+    }
 
     return (
         <div>
@@ -222,13 +247,42 @@ const ResumeBuilder = () => {
 
                                 )}
                             </div>
+                            <button className="bg-gradient-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 
+                            transition-all rounded-md px-6 py-2 mt-6 text-sm">
+                                Save Changes
+                            </button>
                         </div>
                     </div>
 
                     {/* Sağ Panel - Önizleme */}
                     <div className="lg:col-span-7 max-lg:mt-6">
-                        <div>
-                            {/* ---butonlar---- */}
+                        <div className="relative w-full">
+                            <div className="absolute bottom-3 left-0 
+                            right-0 flex items-center justify-end gap-2">
+                                {resumeData.public && (
+                                    <button onClick={handleShare} className='flex items-center p-2 px-4 gap-2 text-xs 
+                                    bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 rounded-lg ring-blue-300
+                                    hover:ring transition-colors
+                                    '>
+                                        <Share2Icon className="size-4" />
+                                    </button>
+                                )}
+
+                                <button onClick={changeResumeVisibility} className="flex items-center p-2 px-4 gap-2 text-xs 
+                                bg-gradient-to-br from-purple-100 to-purple-200 text-purple-600 rounded-lg 
+                                ring-purple-300 rounded-lg hover:ring transition-colors">
+                                    {resumeData.public ? <EyeIcon className="size-4" /> :
+                                        <EyeOffIcon className="size-4" />}
+                                    {resumeData.public ? "Public" : "Private"}
+                                </button>
+
+                                <button onClick={downloadResume} className="flex items-center gap-2 px-6 py-2 text-xs bg-gradient-to-br
+                                from-green-100 to-green-200 ring-green-300 text-green-600 ring rounded-lg
+                                ring-green-300 hover:ring transition-colors">
+                                    <DownloadIcon className="size-4" /> Download
+                                </button>
+
+                            </div>
 
                         </div>
                         {/* --resume preview */}

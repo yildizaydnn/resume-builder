@@ -104,11 +104,6 @@ const ClassicTemplate = ({ data, accentColor }) => {
                             <div key={index} className="flex justify-between items-start border-l-3 border-gray-300 pl-6">
                                 <div>
                                     <li className="font-semibold text-gray-800 ">{proj.name}</li>
-                                    {proj.link && (
-                                        <a href={proj.link} target="_blank" rel="noopener noreferrer" className="text-sm block mt-1 break-all" style={{ color: accentColor }}>
-                                            {proj.link}
-                                        </a>
-                                    )}
                                     <p className="text-gray-600">{proj.description}</p>
                                 </div>
                             </div>

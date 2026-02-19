@@ -109,11 +109,6 @@ const ModernTemplate = ({ data, accentColor }) => {
 									<div className="flex justify-between items-start">
 										<div>
 											<h3 className="text-lg font-medium text-gray-900">{p.name}</h3>
-											{p.link && (
-												<a href={p.link} target="_blank" rel="noopener noreferrer" className="text-sm block mt-1 break-all" style={{ color: accentColor }}>
-													{p.link}
-												</a>
-											)}
 										</div>
 									</div>
 									{p.description && (

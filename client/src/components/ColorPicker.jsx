@@ -36,7 +36,7 @@ transition-all px-3 py-2 rounded-lg'>
                         <div
                             key={color.value}
                             className='relative cursor-pointer group flex flex-col items-center'
-                            onClick={() => { onChange(color.value) }}
+                            onClick={() => { onChange(color.value); setIsOpen }}
                         >
                             {/* renkli yuvarlak  */}
                             <div
