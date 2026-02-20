@@ -14,7 +14,7 @@ const Preview = () => {
 
   const loadResumeData = async () => {
     const data = dummyResumeData.find((resume) => resume._id === resumeId);
-    setResumeData(data || null); // Eğer bulunamazsa state'i null yap
+    setResumeData(data || null);
     setIsLoading(false);
   }
 
